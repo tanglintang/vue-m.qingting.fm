@@ -1,13 +1,23 @@
 <template>
-  <div>search</div>
+  <div>
+    <head-top />
+    <nav-bar />
+  </div>
 </template>
 
 <script>
-export default {
+import HeadTop from '@/components/HeadTop'
+import NavBar from '@/components/NavBar'
 
+export default {
+  name: 'home',
+  components: {
+    HeadTop,
+    NavBar
+  }
 }
 </script>
 
-<style>
+<style lang="stylus" scoped>
 
 </style>

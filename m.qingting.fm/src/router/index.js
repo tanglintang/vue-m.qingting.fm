@@ -3,16 +3,19 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const Home = () => import('@/pages/home')
-const Search = () => import('@/pages/search')
-const Cate = () => import('@/pages/categories')
+const Home = () => import('@/pages/Home')
+const Search = () => import('@/pages/Search')
+const Cate = () => import('@/pages/Categories')
+const Radio = () => import('@/pages/Radio')
 const NotFound = () => import('@/pages/404')
 
 export default new Router({
+  mode: 'history',
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
-      component: Home
+      redirect: '/home'
     },
     {
       path: '/home',
@@ -25,6 +28,10 @@ export default new Router({
     {
       path: '/categories',
       component: Cate
+    },
+    {
+      path: '/radio',
+      component: Radio
     },
     {
       path: '*',
