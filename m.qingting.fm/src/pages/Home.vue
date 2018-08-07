@@ -8,12 +8,14 @@
       </swiper-slide>
       <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
+    <recommend-group :rcmItem="item" v-for="item in recommendList" :key="item.id"></recommend-group>
   </div>
 </template>
 
 <script>
 import HeadTop from '@/components/HeadTop'
 import NavBar from '@/components/NavBar'
+import RecommendGroup from '@/components/RecommendGroup'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { getBanner, getHomePage } from '@/api/getData'
 
@@ -22,6 +24,7 @@ export default {
   components: {
     HeadTop,
     NavBar,
+    RecommendGroup,
     swiper,
     swiperSlide
   },
@@ -43,14 +46,13 @@ export default {
         {
           img_url: 'http://pic.qingting.fm/pushRecommend/2018/08/05/5c4dd1aa0b06fc5a5c6e4011a273e449.jpeg!800'
         }
-      ]
+      ],
+      recommendList: []
     }
   },
   async mounted () {
-    this.bannerList = []
     this.bannerList = await getBanner()
-    const homePage = await getHomePage()
-    console.log(homePage)
+    this.recommendList = await getHomePage()
   }
 }
 </script>
@@ -60,5 +62,5 @@ export default {
   margin-top 10px
   .swiper-item
     img
-      width 100vw
+      width 100%
 </style>

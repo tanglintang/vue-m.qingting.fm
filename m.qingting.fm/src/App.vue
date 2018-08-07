@@ -18,7 +18,11 @@ export default {
 <style lang="stylus">
   #app
     width 100vw
+    height 100%
+    max-width 540px
     height auto
     overflow-x hidden
     box-sizing border-box
+    background-color: #F5F5F8;
+    margin 0 auto
 </style>
