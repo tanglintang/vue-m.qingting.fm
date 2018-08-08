@@ -7,6 +7,7 @@ const Home = () => import('@/pages/Home')
 const Search = () => import('@/pages/Search')
 const Cate = () => import('@/pages/Categories')
 const Radio = () => import('@/pages/Radio')
+const Program = () => import('@/pages/Program')
 const NotFound = () => import('@/pages/404')
 
 export default new Router({
@@ -32,6 +33,10 @@ export default new Router({
     {
       path: '/radio',
       component: Radio
+    },
+    {
+      path: '/program/:id',
+      component: Program
     },
     {
       path: '*',

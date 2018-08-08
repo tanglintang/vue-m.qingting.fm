@@ -25,4 +25,5 @@ export default {
     box-sizing border-box
     background-color: #F5F5F8;
     margin 0 auto
+    font-family: Helvetica Neue,Helvetica,PingFang SC,Microsoft YaHei,HelveticaNeue-Light,sans-serif
 </style>

@@ -9,13 +9,17 @@
       <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
     <recommend-group :rcmItem="item" v-for="item in recommendList" :key="item.id"></recommend-group>
+    <loading :show="showLoading"></loading>
+    <mini-player></mini-player>
   </div>
 </template>
 
 <script>
 import HeadTop from '@/components/HeadTop'
 import NavBar from '@/components/NavBar'
+import MiniPlayer from '@/pages/player/miniPlayer'
 import RecommendGroup from '@/components/RecommendGroup'
+import Loading from '@/components/Loading'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { getBanner, getHomePage } from '@/api/getData'
 
@@ -25,6 +29,8 @@ export default {
     HeadTop,
     NavBar,
     RecommendGroup,
+    Loading,
+    MiniPlayer,
     swiper,
     swiperSlide
   },
@@ -47,12 +53,16 @@ export default {
           img_url: 'http://pic.qingting.fm/pushRecommend/2018/08/05/5c4dd1aa0b06fc5a5c6e4011a273e449.jpeg!800'
         }
       ],
-      recommendList: []
+      recommendList: [],
+      showLoading: true
     }
   },
   async mounted () {
     this.bannerList = await getBanner()
     this.recommendList = await getHomePage()
+    this.$nextTick(() => {
+      this.showLoading = this.recommendList.length < 0
+    })
   }
 }
 </script>

@@ -5,11 +5,11 @@
       {{rcmItem.name}}
     </div>
     <div class="recommend-item">
-      <block class="item" v-for="(item,index) in rcmItem.recommends" :key="index" v-if="index < 3">
-        <img class="cover" :src="item.img_url" />
-        <div class="title">{{item.title}}</div>
-        <div class="desc">{{item.desc}}</div>
-      </block>
+      <router-link class="item" v-for="(item,index) in rcmItem.recommends" :key="index" v-if="index < 3" :to="'/program/' + item.id">
+          <img class="cover" :src="item.img_url" />
+          <div class="title">{{item.title}}</div>
+          <div class="desc">{{item.desc}}</div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
     rcmItem: Object
   },
   mounted () {
-    console.log(this.rcmItem)
+    // console.log(this.rcmItem)
   }
 }
 </script>
