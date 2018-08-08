@@ -1,17 +1,21 @@
 <template>
   <div id="app">
     <router-view v-if="!$route.meta.keepalive"></router-view>
-    <transition name="router-fade">
-      <keep-alive>
-        <router-view v-if="$route.meta.keepalive"></router-view>
-      </keep-alive>
-    </transition>
+    <!-- <transition name="router-fade"> -->
+      <!-- <keep-alive> -->
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      <!-- </keep-alive> -->
+    <!-- </transition> -->
+    <mini-player></mini-player>
   </div>
 </template>
 
 <script>
+import MiniPlayer from '@/pages/player/miniPlayer'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: { MiniPlayer }
 }
 </script>
 

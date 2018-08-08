@@ -3,7 +3,7 @@
     <div class="head">
       <img :src="channel.img_url" alt="封面" class="chan_img filter" />
       <div class="cover"></div>
-      <div class="play-btn"></div>
+      <div class="play-btn" :style="{backgroundImage: 'url(' + imgUrl + ')'}" @click="playAudio"></div>
       <div class="player">
         <img :src="podcasts.img_url" alt="播音" class="pod_img">
         <span class="pod_name">{{podcasts.name}}</span>
@@ -19,23 +19,28 @@
     <div class="intro">
       <span>简介：</span>{{channel.desc}}
     </div>
+    <!-- <mini-player></mini-player> -->
   </div>
 </template>
 
 <script>
 import { getChannel, getDirectory } from '@/api/getData'
+import MiniPlayer from '@/pages/player/miniPlayer'
 
 export default {
   data () {
     return {
       channel: {},
       id: null,
+      play_url: 'http://sss.qingting.fm/www/images/play@2x.png',
+      pause_url: 'http://sss.qingting.fm/www/images/pause@2x.png',
       podcasts: {},
       page: 1,
       chapter: {},
-      chaNum: 0
+      chapterNum: 0
     }
   },
+  components: { MiniPlayer },
   async mounted () {
     this.id = this.$route.params.id
     // 获取内容
@@ -45,11 +50,23 @@ export default {
     this.podcasts = this.channel.podcasters[0]
     // 获取目录
     const directorys = await getDirectory(this.id, this.page)
-    this.chapter = directorys[this.chaNum]
-    // console.log(directorys)
-    console.log(channel)
+    // this.chapterNum = this.
+    this.chapter = directorys[this.chapterNum]
+    console.log(directorys)
+    // console.log(channel)
+  },
+  computed: {
+    imgUrl () {
+      let playing = this.$store.state.playing
+      return playing ? this.pause_url : this.play_url
+    }
+  },
+  methods: {
+    playAudio () {
+      this.$store.state.playing ? this.$store.dispatch('pauseAudio') : this.$store.dispatch('playAudio')
+      this.$store.dispatch('setPlayUrl', this.$route.fullPath)
+    }
   }
-
 }
 </script>
 
@@ -58,6 +75,7 @@ export default {
   width 100%
   height 300px
   position relative
+  box-sizing border-box
   .chan_img.filter
     width 100%
     height 100%
@@ -74,7 +92,7 @@ export default {
     top 50%
     left 50%
     transform translate(-50%, -50%)
-    background url(../assets/images/playBtn.png) no-repeat center
+    background-repeat no-repeat
     background-size 60px
     width 60px
     height 60px
@@ -94,6 +112,7 @@ export default {
       letter-spacing 2px
 .msg
   width 100%
+  box-sizing border-box
   overflow hidden
   background-color #fff
   border-bottom 1px solid #F8F8F8
@@ -102,6 +121,7 @@ export default {
     font-size 20px
     font-weight bold
     letter-spacing 4px
+    line-height 30px
   span
     display inline
     font-size 14px

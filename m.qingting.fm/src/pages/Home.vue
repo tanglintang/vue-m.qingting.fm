@@ -10,7 +10,7 @@
     </swiper>
     <recommend-group :rcmItem="item" v-for="item in recommendList" :key="item.id"></recommend-group>
     <loading :show="showLoading"></loading>
-    <mini-player></mini-player>
+    <!-- <mini-player></mini-player> -->
   </div>
 </template>
 
