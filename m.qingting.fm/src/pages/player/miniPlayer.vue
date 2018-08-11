@@ -1,10 +1,14 @@
 <template>
-  <router-link :to="this.$store.plau_url">
-    <div class="mini-player" :style="{backgroundImage: 'url(' + getImgUrl + ')'}" :class="{ 'playing': this.$store.state.playing }"></div>
+  <router-link :to="this.$store.state.play_url">
+    <div class="mini-player" :style="{backgroundImage: 'url(' + program_img + ')'}" :class="{ 'playing': this.$store.state.playing }">
+      <audio :src="play_url" ref="audio" autoplay></audio>
+    </div>
   </router-link>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -12,13 +16,8 @@ export default {
       playing: false
     }
   },
-  mounted () {
-    console.log(this.$store.state.program_img)
-  },
   computed: {
-    getImgUrl () {
-      return this.$store.state.program_img
-    }
+    ...mapState(['program_img', 'play_url'])
   }
 }
 </script>

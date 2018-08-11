@@ -10,7 +10,6 @@
     </swiper>
     <recommend-group :rcmItem="item" v-for="item in recommendList" :key="item.id"></recommend-group>
     <loading :show="showLoading"></loading>
-    <!-- <mini-player></mini-player> -->
   </div>
 </template>
 
@@ -54,7 +53,8 @@ export default {
         }
       ],
       recommendList: [],
-      showLoading: true
+      showLoading: true,
+      id: null
     }
   },
   async mounted () {
@@ -62,6 +62,11 @@ export default {
     this.recommendList = await getHomePage()
     this.$nextTick(() => {
       this.showLoading = this.recommendList.length < 0
+    })
+  },
+  beforeRouteLeave (to, from, next) {
+    this.$store.dispatch('getChannel', to.params.id).then(() => {
+      next()
     })
   }
 }

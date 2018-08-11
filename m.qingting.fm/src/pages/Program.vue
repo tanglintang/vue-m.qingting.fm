@@ -19,46 +19,35 @@
     <div class="intro">
       <span>简介：</span>{{channel.desc}}
     </div>
-    <!-- <mini-player></mini-player> -->
   </div>
 </template>
 
 <script>
-import { getChannel, getDirectory } from '@/api/getData'
-import MiniPlayer from '@/pages/player/miniPlayer'
+import { mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      channel: {},
       id: null,
       play_url: 'http://sss.qingting.fm/www/images/play@2x.png',
       pause_url: 'http://sss.qingting.fm/www/images/pause@2x.png',
       podcasts: {},
       page: 1,
-      chapter: {},
-      chapterNum: 0
+      chapter: {}
     }
   },
-  components: { MiniPlayer },
-  async mounted () {
-    this.id = this.$route.params.id
-    // 获取内容
-    const channel = await getChannel(this.id)
-    this.channel = Object.assign({}, channel)
+  mounted () {
     // 演播员
     this.podcasts = this.channel.podcasters[0]
-    // 获取目录
-    const directorys = await getDirectory(this.id, this.page)
-    // this.chapterNum = this.
-    this.chapter = directorys[this.chapterNum]
-    console.log(directorys)
-    // console.log(channel)
+    // 当前播放 chapter
+    if (this.$store.state.chapterNum === 0) {
+      this.chapter = this.directorys[0]
+    }
   },
   computed: {
+    ...mapState(['channel', 'playing', 'directorys']),
     imgUrl () {
-      let playing = this.$store.state.playing
-      return playing ? this.pause_url : this.play_url
+      return this.playing ? this.pause_url : this.play_url
     }
   },
   methods: {

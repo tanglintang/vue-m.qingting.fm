@@ -18,9 +18,6 @@
 export default {
   props: {
     rcmItem: Object
-  },
-  mounted () {
-    // console.log(this.rcmItem)
   }
 }
 </script>
