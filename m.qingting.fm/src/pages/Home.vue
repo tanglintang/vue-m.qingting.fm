@@ -65,7 +65,7 @@ export default {
     })
   },
   beforeRouteLeave (to, from, next) {
-    this.$store.dispatch('getChannel', to.params.id).then(() => {
+    this.$store.dispatch('getDirectory', to.params.id).then(() => {
       next()
     })
   }

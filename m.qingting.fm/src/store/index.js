@@ -13,12 +13,18 @@ const state = {
   chapterNum: 0,
   channel: {},
   directory: [],
-  page: null
+  page: null,
+  cur_play: {}
+}
+
+const getters = {
+  cur_img_url: state => state.cur_play.curChannel ? state.cur_play.curChannel.img_url : ''
 }
 
 export default new Vuex.Store({
   state,
   mutations,
   actions,
+  getters,
   plugins: [createPersistedState()]
 })

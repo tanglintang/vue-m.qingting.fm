@@ -6,8 +6,6 @@ export const GETDIRECTORY = 'GETDIRECTORY'
 export const PLAYAUDIO = 'PLAYAUDIO'
 export const PAUSEAUDIO = 'PAUSEAUDIO'
 
-// 设置全局播放路径
-export const SETPLAYURL = 'SETPLAYURL'
-
-// 设置正在播放章节
+// 设置正在播放
 export const SETCHAPTERNUM = 'SETCHAPTERNUM'
+export const SETCURPLAY = 'SETCURPLAY'

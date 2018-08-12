@@ -33,7 +33,8 @@ export default {
       pause_url: 'http://sss.qingting.fm/www/images/pause@2x.png',
       podcasts: {},
       page: 1,
-      chapter: {}
+      chapter: {},
+      falg: 0
     }
   },
   mounted () {
@@ -43,17 +44,32 @@ export default {
     if (this.$store.state.chapterNum === 0) {
       this.chapter = this.directorys[0]
     }
+    console.log(this.chapter)
+    console.log(this.channel)
   },
   computed: {
-    ...mapState(['channel', 'playing', 'directorys']),
+    ...mapState(['channel', 'playing', 'directorys', 'cur_play']),
     imgUrl () {
-      return this.playing ? this.pause_url : this.play_url
+      if (this.cur_play && this.cur_play.curChannel.id === this.channel.id) {
+        return this.playing ? this.pause_url : this.play_url
+      } else {
+        return this.play_url
+      }
     }
   },
   methods: {
     playAudio () {
-      this.$store.state.playing ? this.$store.dispatch('pauseAudio') : this.$store.dispatch('playAudio')
-      this.$store.dispatch('setPlayUrl', this.$route.fullPath)
+      const curPlay = {
+        url: this.$route.fullPath,
+        curChannel: this.channel,
+        curChapter: this.chapter
+      }
+      // if (!this.cur_play || this.cur_play.curChannel.id !== this.channel.id) {
+      //   this.playing ? this.$store.dispatch('playAudio') : this.$store.dispatch('pauseAudio')
+      // } else {
+      this.playing ? this.$store.dispatch('pauseAudio') : this.$store.dispatch('playAudio')
+      // }
+      this.$store.dispatch('setCurPlay', curPlay)
     }
   }
 }

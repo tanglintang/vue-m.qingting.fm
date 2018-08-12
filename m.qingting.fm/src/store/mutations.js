@@ -19,7 +19,11 @@ export default {
   [types.SETCHAPTERNUM] (state, chapterNum) {
     state.chapterNum = chapterNum
   },
-  [types.SETPLAYURL] (state, url) {
-    state.play_url = url + '/chapter/' + state.chapterNum
+  [types.SETCURPLAY] (state, { url, curChannel, curChapter }) {
+    state.cur_play = {
+      play_url: url + '/chapter/' + state.chapterNum,
+      curChannel,
+      curChapter
+    }
   }
 }

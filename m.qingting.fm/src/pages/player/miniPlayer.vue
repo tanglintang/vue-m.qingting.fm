@@ -1,23 +1,37 @@
 <template>
-  <router-link :to="this.$store.state.play_url">
-    <div class="mini-player" :style="{backgroundImage: 'url(' + program_img + ')'}" :class="{ 'playing': this.$store.state.playing }">
-      <audio :src="play_url" ref="audio" autoplay></audio>
+  <router-link :to="play_url">
+    <div class="mini-player" :style="{backgroundImage: 'url(' + getImg + ')'}" :class="{ 'playing': this.playing }">
+      <audio :src="'http://od.qingting.fm/' + getSource" ref="audio"></audio>
     </div>
   </router-link>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
-      cid: '',
-      playing: false
+      cid: ''
     }
   },
   computed: {
-    ...mapState(['program_img', 'play_url'])
+    ...mapState(['program_img', 'cur_play', 'playing']),
+    ...mapGetters(['cur_img_url']),
+    play_url () {
+      return this.cur_play ? this.cur_play.play_url : this.$store.state.play_url
+    },
+    getImg () {
+      return this.cur_img_url || this.program_img
+    },
+    getSource () {
+      return this.cur_play ? this.cur_play.curChapter.file_path : ''
+    }
+  },
+  updated () {
+    this.$nextTick(() => {
+      this.playing ? this.$refs.audio.play() : this.$refs.audio.pause()
+    })
   }
 }
 </script>

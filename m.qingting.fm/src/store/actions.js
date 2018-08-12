@@ -2,8 +2,11 @@ import * as types from './mutation-types'
 import { getChannel, getDirectory } from '@/api/getData'
 
 export default {
-  async getChannel ({ commit }, id, page = 1) {
+  async getChannel ({ commit }, id) {
     commit(types.GETCHANNEL, await getChannel(id))
+  },
+  async getDirectory ({ dispatch, commit }, id, page = 1) {
+    await dispatch('getChannel', id)
     commit(types.GETDIRECTORY, await getDirectory(id, page))
   },
   playAudio ({ commit }) {
@@ -12,10 +15,10 @@ export default {
   pauseAudio ({ commit }) {
     commit(types.PAUSEAUDIO)
   },
-  setPlayUrl ({ commit }, url) {
-    commit(types.SETPLAYURL, url)
-  },
   setChapterNum ({ commit }, chapterNum) {
     commit(types.SETCHAPTERNUM, chapterNum)
+  },
+  setCurPlay ({ commit }, curPlay) {
+    commit(types.SETCURPLAY, curPlay)
   }
 }
