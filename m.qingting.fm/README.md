@@ -36,3 +36,31 @@ actions 异步获取数据
 ```
 
 ## vuex-persistedstate 持久化存储
+
+## 对 h5 audio 的 currentTime、duration 监听
+```js
+  methods: {
+    addEventListeners: function () {
+      const self = this
+      self.$refs.audio.addEventListener('timeupdate', self._currentTime)
+      self.$refs.audio.addEventListener('canplay', self._durationTime)
+    },
+    removeEventListeners: function () {
+      const self = this
+      self.$refs.audio.removeEventListener('timeupdate', self._currentTime)
+      self.$refs.audio.removeEventListener('canplay', self._durationTime)
+    },
+    _currentTime: function () {
+      this.timeNow = parseInt(this.$refs.audio.currentTime)
+    },
+    _durationTime: function () {
+      this.timeDuration = parseInt(this.$refs.audio.duration)
+    }
+  },
+  mounted () {
+    this.addEventListeners()
+  },
+  beforeDestroyed () {
+    this.removeEventListeners()
+  },
+```

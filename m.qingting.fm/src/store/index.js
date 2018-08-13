@@ -14,11 +14,18 @@ const state = {
   channel: {},
   directory: [],
   page: null,
-  cur_play: {}
+  cur_play: {},
+  cur_time: null,
+  duration: null
 }
 
 const getters = {
-  cur_img_url: state => state.cur_play.curChannel ? state.cur_play.curChannel.img_url : ''
+  cur_img_url: state => state.cur_play.curChannel ? state.cur_play.curChannel.img_url : '',
+  title: state => state.cur_play.curChannel ? state.cur_play.curChannel.name : '',
+  podcast: state => state.cur_play.curChannel ? state.cur_play.curChannel.podcasters[0].name : '',
+  getPercent: state => {
+    return Math.min(1, state.cur_time / state.duration)
+  }
 }
 
 export default new Vuex.Store({

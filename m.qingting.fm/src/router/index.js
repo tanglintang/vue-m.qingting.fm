@@ -41,7 +41,11 @@ export default new Router({
     },
     {
       path: '/program/:id/chapter/:cid',
-      component: Player
+      name: 'player',
+      component: Player,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '*',

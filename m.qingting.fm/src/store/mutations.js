@@ -19,11 +19,22 @@ export default {
   [types.SETCHAPTERNUM] (state, chapterNum) {
     state.chapterNum = chapterNum
   },
-  [types.SETCURPLAY] (state, { url, curChannel, curChapter }) {
+  [types.SETCURPLAY] (state, { url, curChannel, curChapter, curDirectory }) {
     state.cur_play = {
       play_url: url + '/chapter/' + state.chapterNum,
       curChannel,
-      curChapter
+      curChapter,
+      curDirectory
     }
+  },
+  [types.CHANGEAUDIO] (state, curChapter) {
+    state.cur_play.curChapter = curChapter
+    state.playing = true
+  },
+  [types.SETCURTIME] (state, curTime) {
+    state.cur_time = curTime
+  },
+  [types.SETDURATION] (state, duration) {
+    state.duration = duration
   }
 }

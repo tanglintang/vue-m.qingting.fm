@@ -44,8 +44,6 @@ export default {
     if (this.$store.state.chapterNum === 0) {
       this.chapter = this.directorys[0]
     }
-    console.log(this.chapter)
-    console.log(this.channel)
   },
   computed: {
     ...mapState(['channel', 'playing', 'directorys', 'cur_play']),
@@ -62,13 +60,10 @@ export default {
       const curPlay = {
         url: this.$route.fullPath,
         curChannel: this.channel,
-        curChapter: this.chapter
+        curChapter: this.chapter,
+        curDirectory: this.directorys
       }
-      // if (!this.cur_play || this.cur_play.curChannel.id !== this.channel.id) {
-      //   this.playing ? this.$store.dispatch('playAudio') : this.$store.dispatch('pauseAudio')
-      // } else {
       this.playing ? this.$store.dispatch('pauseAudio') : this.$store.dispatch('playAudio')
-      // }
       this.$store.dispatch('setCurPlay', curPlay)
     }
   }

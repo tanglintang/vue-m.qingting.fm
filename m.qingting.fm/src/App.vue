@@ -1,12 +1,10 @@
 <template>
   <div id="app">
     <router-view v-if="!$route.meta.keepalive"></router-view>
-    <!-- <transition name="router-fade"> -->
-      <!-- <keep-alive> -->
-        <router-view v-if="$route.meta.keepAlive"></router-view>
-      <!-- </keep-alive> -->
-    <!-- </transition> -->
-    <mini-player></mini-player>
+    <keep-alive include="player">
+      <router-view v-if="$route.meta.keepalive"></router-view>
+    </keep-alive>
+    <mini-player v-show="!$route.meta.keepAlive"></mini-player>
   </div>
 </template>
 

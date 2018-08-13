@@ -6,7 +6,9 @@ export default {
     commit(types.GETCHANNEL, await getChannel(id))
   },
   async getDirectory ({ dispatch, commit }, id, page = 1) {
-    await dispatch('getChannel', id)
+    if (page === 1) {
+      await dispatch('getChannel', id)
+    }
     commit(types.GETDIRECTORY, await getDirectory(id, page))
   },
   playAudio ({ commit }) {
@@ -20,5 +22,14 @@ export default {
   },
   setCurPlay ({ commit }, curPlay) {
     commit(types.SETCURPLAY, curPlay)
+  },
+  changeAudio ({ commit }, curChapter) {
+    commit(types.CHANGEAUDIO, curChapter)
+  },
+  setCurTime ({ commit }, curTime) {
+    commit(types.SETCURTIME, curTime)
+  },
+  setDuration ({ commit }, duration) {
+    commit(types.SETDURATION, duration)
   }
 }
