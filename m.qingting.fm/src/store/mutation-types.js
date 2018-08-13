@@ -1,4 +1,5 @@
 // 请求数据
+export const GETHOMEPAGE = 'GETHOMEPAGE'
 export const GETCHANNEL = 'GETCHANNEL'
 export const GETDIRECTORY = 'GETDIRECTORY'
 

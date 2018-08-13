@@ -1,7 +1,10 @@
 import * as types from './mutation-types'
-import { getChannel, getDirectory } from '@/api/getData'
+import { getHomePage, getChannel, getDirectory } from '@/api/getData'
 
 export default {
+  async getHomePage ({ commit }) {
+    commit(types.GETHOMEPAGE, await getHomePage())
+  },
   async getChannel ({ commit }, id) {
     commit(types.GETCHANNEL, await getChannel(id))
   },

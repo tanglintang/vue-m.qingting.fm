@@ -7,6 +7,7 @@ import actions from './actions'
 Vue.use(Vuex)
 
 const state = {
+  homePageData: [],
   playing: false,
   program_img: 'http://pic.qingting.fm/self/qtfm.png!200',
   play_url: '',

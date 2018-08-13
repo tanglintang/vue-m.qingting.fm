@@ -2,6 +2,9 @@ import * as types from './mutation-types'
 
 export default {
   // 数据请求
+  [types.GETHOMEPAGE] (state, data) {
+    state.homePageData = data
+  },
   [types.GETCHANNEL] (state, channel) {
     state.channel = channel
   },

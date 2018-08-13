@@ -16,8 +16,8 @@
           <div class="msg">
             <span class="update_time">{{item.update_time.split(' ')[0]}}</span>
             <span class="play_num">{{item.playcount}} 播放</span>
-            <span class="duration" v-if="index !== chapterNum">{{format(item.duration)}}</span>
-            <i class="ic_playing" :style="{backgroundImage: 'url(' + imgUrl + ')'}" v-if="index === chapterNum"></i>
+            <span class="duration" v-if="index !== (chapterNum - 1)">{{format(item.duration)}}</span>
+            <i class="ic_playing" :style="{backgroundImage: 'url(' + imgUrl + ')'}" v-if="index === (chapterNum - 1)"></i>
           </div>
         </li>
       </ul>

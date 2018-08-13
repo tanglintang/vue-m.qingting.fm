@@ -8,7 +8,7 @@
       </swiper-slide>
       <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
-    <recommend-group :rcmItem="item" v-for="item in recommendList" :key="item.id"></recommend-group>
+    <recommend-group :rcmItem="item" v-for="item in homePageData" :key="item.id"></recommend-group>
     <loading :show="showLoading"></loading>
   </div>
 </template>
@@ -20,7 +20,8 @@ import MiniPlayer from '@/pages/player/miniPlayer'
 import RecommendGroup from '@/components/RecommendGroup'
 import Loading from '@/components/Loading'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { getBanner, getHomePage } from '@/api/getData'
+import { getBanner } from '@/api/getData'
+import { mapState } from 'vuex'
 
 export default {
   name: 'home',
@@ -57,11 +58,14 @@ export default {
       id: null
     }
   },
+  computed: {
+    ...mapState(['homePageData'])
+  },
   async mounted () {
+    this.$store.dispatch('getHomePage')
     this.bannerList = await getBanner()
-    this.recommendList = await getHomePage()
     this.$nextTick(() => {
-      this.showLoading = this.recommendList.length < 0
+      this.showLoading = this.homePageData.length < 0
     })
   },
   beforeRouteLeave (to, from, next) {

@@ -41,12 +41,10 @@ export default {
     // 演播员
     this.podcasts = this.channel.podcasters[0]
     // 当前播放 chapter
-    if (this.$store.state.chapterNum === 0) {
-      this.chapter = this.directorys[0]
-    }
+    this.chapter = this.directorys[0]
   },
   computed: {
-    ...mapState(['channel', 'playing', 'directorys', 'cur_play']),
+    ...mapState(['chapterNum', 'channel', 'playing', 'directorys', 'cur_play']),
     imgUrl () {
       if (this.cur_play && this.cur_play.curChannel.id === this.channel.id) {
         return this.playing ? this.pause_url : this.play_url
