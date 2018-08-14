@@ -8,8 +8,14 @@ export default {
   [types.GETCHANNEL] (state, channel) {
     state.channel = channel
   },
-  [types.GETDIRECTORY] (state, directorys) {
-    state.directorys = directorys
+  [types.GETDIRECTORY] (state, {directorys, page}) {
+    if (page === 1) {
+      state.directorys = directorys
+    } else {
+      state.directorys = state.directorys.concat(directorys)
+      state.cur_play.curDirectory = state.cur_play.curDirectory.concat(directorys)
+    }
+    state.page = page
   },
   // 播放
   [types.PLAYAUDIO] (state) {

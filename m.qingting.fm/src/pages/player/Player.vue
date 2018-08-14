@@ -9,7 +9,7 @@
         <span class="podcast">{{podcast}}</span>
       </div>
     </div>
-    <div class="wrapper directory">
+    <div class="wrapper directory" ref="wrapper">
       <ul class="content">
         <li v-for="(item, index) in directory" :key="index" @click="changeChapter(item, index)">
           <div class="chap_title">{{item.name}}</div>
@@ -46,13 +46,14 @@ import { mapState, mapGetters } from 'vuex'
 import formatTime from '@/common/js/formatTime'
 import iconWave from '@/assets/images/ic_wave.gif'
 import iconStatic from '@/assets/images/ic_static.png'
+import BScroll from 'better-scroll'
 
 export default {
   components: {
     progressBar
   },
   computed: {
-    ...mapState(['cur_play', 'cur_time', 'duration', 'playing', 'chapterNum', 'directorys']),
+    ...mapState(['cur_play', 'cur_time', 'duration', 'playing', 'chapterNum', 'page']),
     ...mapGetters(['cur_img_url', 'title', 'podcast']),
     directory () {
       return this.cur_play.curDirectory
@@ -90,6 +91,32 @@ export default {
       console.log(chapter)
       this.changeChapter(chapter, index)
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      if (!this.scroll) {
+        this.scroll = new BScroll(this.$refs.wrapper, {
+          probeType: 1,
+          click: true,
+          pullUpLoad: {
+            threshold: 50
+          }
+        })
+        this.scroll.on('touchEnd', (pos) => {
+          // 下拉动作
+          if (pos.y < -300) {
+            const data = {
+              id: this.$route.params.id,
+              page: this.page + 1
+            }
+            this.$store.dispatch('getDirectory', data)
+            this.scroll.refresh()
+          }
+        })
+      } else {
+        this.scroll.refresh()
+      }
+    })
   }
 }
 </script>

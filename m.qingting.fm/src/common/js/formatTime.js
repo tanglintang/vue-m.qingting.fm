@@ -1,7 +1,8 @@
 // 最大支持 小时
-function formatTime (time) {
-  if (time == null || time < 0) return
+function formatTime (t) {
+  if (t == null || t < 0) return
 
+  let time = parseInt(t)
   let hh = parseInt(time / 3600)
   let mm = parseInt((time - hh * 3600) / 60)
   if (mm < 10) mm = '0' + mm

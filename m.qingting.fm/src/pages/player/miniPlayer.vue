@@ -67,7 +67,7 @@ export default {
   .mini-player
     position fixed
     top 88%
-    right 8%
+    left 10%
     width 50px
     height 50px
     border-radius 50%
@@ -84,4 +84,11 @@ export default {
         transform rotate(360deg)
       }
     }
+  @media (max-width 420px)
+    .mini-player
+      left 72%
+      top 84%
+  @media (min-width 420px)
+    .mini-player
+      left 63%
 </style>

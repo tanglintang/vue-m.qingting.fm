@@ -8,11 +8,17 @@ export default {
   async getChannel ({ commit }, id) {
     commit(types.GETCHANNEL, await getChannel(id))
   },
-  async getDirectory ({ dispatch, commit }, id, page = 1) {
+  async getDirectory ({ dispatch, commit }, {id, page}) {
+    console.log(page)
     if (page === 1) {
       await dispatch('getChannel', id)
     }
-    commit(types.GETDIRECTORY, await getDirectory(id, page))
+    const directorys = await getDirectory(id, page)
+    const data = {
+      directorys,
+      page
+    }
+    commit(types.GETDIRECTORY, data)
   },
   playAudio ({ commit }) {
     commit(types.PLAYAUDIO)

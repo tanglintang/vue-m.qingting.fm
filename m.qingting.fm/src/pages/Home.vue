@@ -69,7 +69,11 @@ export default {
     })
   },
   beforeRouteLeave (to, from, next) {
-    this.$store.dispatch('getDirectory', to.params.id).then(() => {
+    const data = {
+      id: to.params.id,
+      page: 1
+    }
+    this.$store.dispatch('getDirectory', data).then(() => {
       next()
     })
   }
